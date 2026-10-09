@@ -1,0 +1,21 @@
+﻿@model QuanLyThietBi_UNETI04_DHTI17A2HN.Models.Entities.TaiKhoan
+@{
+    ViewData["Title"] = "Xóa tài khoản";
+}
+<h2 class="text-danger">⚠️ Xóa tài khoản</h2>
+<h4>Bạn có chắc chắn muốn xóa tài khoản này?</h4>
+<dl class="row">
+    <dt class="col-sm-3">Tên đăng nhập</dt>
+    <dd class="col-sm-9">@Model.TenDangNhap</dd>
+
+    <dt class="col-sm-3">Họ tên</dt>
+    <dd class="col-sm-9">@Model.HoTen</dd>
+
+    <dt class="col-sm-3">Vai trò</dt>
+    <dd class="col-sm-9">@Model.VaiTro</dd>
+</dl>
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="MaTaiKhoan" />
+    <button type="submit" class="btn btn-danger">🗑️ Xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>

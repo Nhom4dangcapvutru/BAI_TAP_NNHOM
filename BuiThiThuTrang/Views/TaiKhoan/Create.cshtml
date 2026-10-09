@@ -1,0 +1,51 @@
+﻿@model QuanLyThietBi_UNETI04_DHTI17A2HN.Models.Entities.TaiKhoan
+@{
+    ViewData["Title"] = "Thêm tài khoản";
+}
+<h2>➕ Thêm tài khoản</h2>
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+            <div class="mb-3">
+                <label asp-for="TenDangNhap" class="form-label"></label>
+                <input asp-for="TenDangNhap" class="form-control" />
+                <span asp-validation-for="TenDangNhap" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="MatKhau" class="form-label"></label>
+                <input asp-for="MatKhau" class="form-control" />
+                <span asp-validation-for="MatKhau" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="HoTen" class="form-label"></label>
+                <input asp-for="HoTen" class="form-control" />
+                <span asp-validation-for="HoTen" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="VaiTro" class="form-label"></label>
+                <select asp-for="VaiTro" class="form-select">
+                    <option value="">-- Chọn vai trò --</option>
+                    <option value="Admin">Admin</option>
+                    <option value="KyThuatVien">Kỹ thuật viên</option>
+                    <option value="KhachHang">Khách hàng</option>
+                </select>
+                <span asp-validation-for="VaiTro" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="TrangThai" class="form-label"></label>
+                <select asp-for="TrangThai" class="form-select">
+                    <option value="Hoạt động">Hoạt động</option>
+                    <option value="Bị khóa">Bị khóa</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">💾 Lưu</button>
+            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+        </form>
+    </div>
+</div>

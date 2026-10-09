@@ -1,0 +1,32 @@
+﻿@model QuanLyThietBi_UNETI04_DHTI17A2HN.Models.Entities.TaiKhoan
+@{
+    ViewData["Title"] = "Chi tiết tài khoản";
+}
+<h2>🔍 Chi tiết tài khoản</h2>
+<dl class="row">
+    <dt class="col-sm-3">Mã tài khoản</dt>
+    <dd class="col-sm-9">@Model.MaTaiKhoan</dd>
+
+    <dt class="col-sm-3">Tên đăng nhập</dt>
+    <dd class="col-sm-9">@Model.TenDangNhap</dd>
+
+    <dt class="col-sm-3">Họ tên</dt>
+    <dd class="col-sm-9">@Model.HoTen</dd>
+
+    <dt class="col-sm-3">Email</dt>
+    <dd class="col-sm-9">@Model.Email</dd>
+
+    <dt class="col-sm-3">Vai trò</dt>
+    <dd class="col-sm-9">@Model.VaiTro</dd>
+
+    <dt class="col-sm-3">Trạng thái</dt>
+    <dd class="col-sm-9">@Model.TrangThai</dd>
+
+    @if (Model.KhachHang != null)
+    {
+        <dt class="col-sm-3">Khách hàng liên kết</dt>
+        <dd class="col-sm-9">@Model.KhachHang.HoTen - @Model.KhachHang.SoDienThoai</dd>
+    }
+</dl>
+<a asp-action="Edit" asp-route-id="@Model.MaTaiKhoan" class="btn btn-warning">Sửa</a>
+<a asp-action="Index" class="btn btn-secondary">Quay lại</a>

@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Trang chủ";
+    var vaiTro = Context.Session.GetString("VaiTro");
+    var hoTen = Context.Session.GetString("HoTen");
+}
+
+@if (string.IsNullOrEmpty(vaiTro))
+{
+    <div class="text-center mt-5">
+        <h1 class="display-4">🔧 Hệ thống Quản Lý Bảo Hành & Sửa Chữa Thiết Bị</h1>
+        <p class="lead">Vui lòng đăng nhập để sử dụng hệ thống.</p>
+        <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-lg">🔐 Đăng nhập ngay</a>
+    </div>
+}
+else
+{
+    <div class="jumbotron bg-light p-5 rounded">
+        <h1 class="display-5">👋 Xin chào, @hoTen!</h1>
+        <p class="lead">Bạn đang đăng nhập với vai trò: <strong>@vaiTro</strong></p>
+        <hr />
+        <p>Sử dụng menu phía trên để điều hướng đến các chức năng của hệ thống.</p>
+    </div>
+}

@@ -1,0 +1,39 @@
+﻿@model QuanLyThietBi_UNETI04_DHTI17A2HN.Models.Entities.LoaiThietBi
+@{
+    ViewData["Title"] = "Xóa loại thiết bị";
+}
+
+<h2 class="text-danger">⚠️ Xóa loại thiết bị</h2>
+
+@if (Model.ThietBis.Any())
+{
+    <div class="alert alert-danger">
+        <strong>Không thể xóa!</strong> Loại thiết bị này đang có
+        <strong>@Model.ThietBis.Count thiết bị</strong> tham chiếu. Vui lòng xóa hoặc chuyển các thiết bị sang loại khác trước.
+    </div>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+}
+else
+{
+    <h4>Bạn có chắc chắn muốn xóa loại thiết bị này?</h4>
+
+    <dl class="row">
+        <dt class="col-sm-3">Mã loại</dt>
+        <dd class="col-sm-9">@Model.MaLoai</dd>
+
+        <dt class="col-sm-3">Tên loại</dt>
+        <dd class="col-sm-9">@Model.TenLoai</dd>
+
+        <dt class="col-sm-3">Hãng sản xuất</dt>
+        <dd class="col-sm-9">@Model.HangSanXuat</dd>
+
+        <dt class="col-sm-3">Bảo hành mặc định</dt>
+        <dd class="col-sm-9">@Model.ThoiHanBaoHanhMacDinh tháng</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="MaLoai" />
+        <button type="submit" class="btn btn-danger">🗑️ Xác nhận xóa</button>
+        <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+    </form>
+}

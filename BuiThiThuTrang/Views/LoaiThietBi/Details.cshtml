@@ -1,0 +1,57 @@
+﻿@model QuanLyThietBi_UNETI04_DHTI17A2HN.Models.Entities.LoaiThietBi
+@{
+    ViewData["Title"] = "Chi tiết loại thiết bị";
+}
+
+<h2>🔍 Chi tiết loại thiết bị</h2>
+
+<dl class="row">
+    <dt class="col-sm-3">Mã loại</dt>
+    <dd class="col-sm-9">@Model.MaLoai</dd>
+
+    <dt class="col-sm-3">Tên loại thiết bị</dt>
+    <dd class="col-sm-9"><strong>@Model.TenLoai</strong></dd>
+
+    <dt class="col-sm-3">Hãng sản xuất</dt>
+    <dd class="col-sm-9">@Model.HangSanXuat</dd>
+
+    <dt class="col-sm-3">Bảo hành mặc định</dt>
+    <dd class="col-sm-9">@Model.ThoiHanBaoHanhMacDinh tháng</dd>
+
+    <dt class="col-sm-3">Mô tả</dt>
+    <dd class="col-sm-9">@(Model.MoTa ?? "—")</dd>
+
+    <dt class="col-sm-3">Số thiết bị thuộc loại</dt>
+    <dd class="col-sm-9">
+        <span class="badge bg-info">@Model.ThietBis.Count thiết bị</span>
+    </dd>
+</dl>
+
+@if (Model.ThietBis.Any())
+{
+    <h4>Danh sách thiết bị thuộc loại này</h4>
+    <table class="table table-sm table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Mã TB</th>
+                <th>Tên thiết bị</th>
+                <th>Serial</th>
+                <th>Trạng thái</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tb in Model.ThietBis)
+            {
+                <tr>
+                    <td>@tb.MaThietBi</td>
+                    <td>@tb.TenThietBi</td>
+                    <td>@tb.SerialNumber</td>
+                    <td>@tb.TrangThai</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a asp-action="Edit" asp-route-id="@Model.MaLoai" class="btn btn-warning">Sửa</a>
+<a asp-action="Index" class="btn btn-secondary">Quay lại</a>

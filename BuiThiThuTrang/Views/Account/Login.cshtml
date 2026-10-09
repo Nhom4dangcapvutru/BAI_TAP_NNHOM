@@ -1,0 +1,58 @@
+﻿@model QuanLyThietBi_UNETI04_DHTI17A2HN.Models.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Đăng nhập hệ thống";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Đăng nhập - Quản Lý Bảo Hành</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        body { background: linear-gradient(135deg, #667eea, #764ba2); height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .login-box { background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); width: 420px; }
+        .login-box h2 { text-align: center; margin-bottom: 25px; color: #333; }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>🔐 Đăng nhập</h2>
+        <form asp-action="Login" method="post">
+            <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-warning">@TempData["Error"]</div>
+            }
+
+            <div class="mb-3">
+                <label asp-for="TenDangNhap" class="form-label"></label>
+                <input asp-for="TenDangNhap" class="form-control" autofocus />
+                <span asp-validation-for="TenDangNhap" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MatKhau" class="form-label"></label>
+                <input asp-for="MatKhau" class="form-control" />
+                <span asp-validation-for="MatKhau" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+        </form>
+
+        <hr />
+        <div class="text-muted small">
+            <strong>Tài khoản test:</strong><br />
+            Admin: <code>admin / 123456</code><br />
+            KTV: <code>ktv_nam / 123456</code><br />
+            Khách: <code>user_kh01 / 123456</code><br />
+            Bị khóa: <code>user_locked / 123456</code>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

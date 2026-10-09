@@ -1,0 +1,118 @@
+﻿@model IEnumerable<QuanLyThietBi_UNETI04_DHTI17A2HN.Models.Entities.TaiKhoan>
+@{
+    ViewData["Title"] = "Quản lý tài khoản";
+}
+
+<h2>👥 Quản lý tài khoản</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<form asp-action="Index" method="get" class="row g-2 mb-3">
+    <div class="col-md-4">
+        <input type="text" name="searchString" value="@ViewBag.SearchString" class="form-control" placeholder="Tìm theo tên đăng nhập / họ tên / email..." />
+    </div>
+    <div class="col-md-2">
+        <select name="vaiTro" class="form-select">
+            <option value="">-- Vai trò --</option>
+            <option value="Admin" selected="@(ViewBag.VaiTro == "Admin")">Admin</option>
+            <option value="KyThuatVien" selected="@(ViewBag.VaiTro == "KyThuatVien")">Kỹ thuật viên</option>
+            <option value="KhachHang" selected="@(ViewBag.VaiTro == "KhachHang")">Khách hàng</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <select name="trangThai" class="form-select">
+            <option value="">-- Trạng thái --</option>
+            <option value="Hoạt động" selected="@(ViewBag.TrangThai == "Hoạt động")">Hoạt động</option>
+            <option value="Bị khóa" selected="@(ViewBag.TrangThai == "Bị khóa")">Bị khóa</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-primary">🔍 Tìm</button>
+        <a asp-action="Index" class="btn btn-secondary">Reset</a>
+    </div>
+    <div class="col-md-2 text-end">
+        <a asp-action="Create" class="btn btn-success">➕ Thêm mới</a>
+    </div>
+</form>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Mã</th>
+            <th>Tên đăng nhập</th>
+            <th>Họ tên</th>
+            <th>Email</th>
+            <th>Vai trò</th>
+            <th>Trạng thái</th>
+            <th style="width: 260px;">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaTaiKhoan</td>
+                <td>@item.TenDangNhap</td>
+                <td>@item.HoTen</td>
+                <td>@item.Email</td>
+                <td>
+                    @switch (item.VaiTro)
+                    {
+                        case "Admin":
+                            <span class="badge bg-danger">Admin</span>
+                            break;
+                        case "KyThuatVien":
+                            <span class="badge bg-info">Kỹ thuật viên</span>
+                            break;
+                        default:
+                            <span class="badge bg-secondary">Khách hàng</span>
+                            break;
+                    }
+                </td>
+                <td>
+                    @if (item.TrangThai == "Hoạt động")
+                    {
+                        <span class="badge bg-success">Hoạt động</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark">Bị khóa</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.MaTaiKhoan" class="btn btn-sm btn-info">Chi tiết</a>
+                    <a asp-action="Edit" asp-route-id="@item.MaTaiKhoan" class="btn btn-sm btn-warning">Sửa</a>
+
+                    <form asp-action="ToggleStatus" asp-route-id="@item.MaTaiKhoan" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-sm @(item.TrangThai == "Hoạt động" ? "btn-secondary" : "btn-success")">
+                            @(item.TrangThai == "Hoạt động" ? "🔒 Khóa" : "🔓 Mở")
+                        </button>
+                    </form>
+
+                    <a asp-action="Delete" asp-route-id="@item.MaTaiKhoan" class="btn btn-sm btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<nav>
+    <ul class="pagination">
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                <a class="page-link" asp-action="Index" asp-route-page="@i"
+                   asp-route-searchString="@ViewBag.SearchString"
+                   asp-route-vaiTro="@ViewBag.VaiTro"
+                   asp-route-trangThai="@ViewBag.TrangThai">@i</a>
+            </li>
+        }
+    </ul>
+</nav>

@@ -1,0 +1,45 @@
+﻿@model QuanLyThietBi_UNETI04_DHTI17A2HN.Models.Entities.LoaiThietBi
+@{
+    ViewData["Title"] = "Thêm loại thiết bị";
+}
+
+<h2>➕ Thêm loại thiết bị</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="TenLoai" class="form-label"></label>
+                <input asp-for="TenLoai" class="form-control" placeholder="VD: Laptop, Điện thoại..." />
+                <span asp-validation-for="TenLoai" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="HangSanXuat" class="form-label"></label>
+                <input asp-for="HangSanXuat" class="form-control" placeholder="VD: Dell, Asus, HP..." />
+                <span asp-validation-for="HangSanXuat" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ThoiHanBaoHanhMacDinh" class="form-label"></label>
+                <input asp-for="ThoiHanBaoHanhMacDinh" class="form-control" type="number" min="1" max="120" />
+                <span asp-validation-for="ThoiHanBaoHanhMacDinh" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MoTa" class="form-label"></label>
+                <textarea asp-for="MoTa" class="form-control" rows="3" placeholder="Mô tả ngắn về loại thiết bị..."></textarea>
+                <span asp-validation-for="MoTa" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">💾 Lưu</button>
+            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

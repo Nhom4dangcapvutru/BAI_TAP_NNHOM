@@ -1,0 +1,120 @@
+﻿@using Microsoft.AspNetCore.Http
+@using QuanLyThietBi_UNETI04_DHTI17A2HN.Models.Constants
+
+@{
+    var vaiTro = Context.Session.GetString("VaiTro");
+    var hoTen = Context.Session.GetString("HoTen");
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Quản Lý Bảo Hành</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">🔧 Quản Lý Bảo Hành</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (!string.IsNullOrEmpty(vaiTro))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Home" asp-action="Index">🏠 Trang chủ</a>
+                            </li>
+
+                            @* MENU CHỈ ADMIN *@
+                            @if (vaiTro == VaiTroConstant.Admin)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="TaiKhoan" asp-action="Index">👥 Tài khoản</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="LoaiThietBi" asp-action="Index">📦 Loại thiết bị</a>
+                                </li>
+                            }
+
+                            @* MENU CHO ADMIN + KTV *@
+                            @if (vaiTro == VaiTroConstant.Admin || vaiTro == VaiTroConstant.KyThuatVien)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="ThietBi" asp-action="Index">💻 Thiết bị</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="KhachHang" asp-action="Index">🧑 Khách hàng</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="PhieuSuaChua" asp-action="Index">📋 Phiếu sửa chữa</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="LinhKien" asp-action="Index">🔩 Linh kiện</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Dashboard" asp-action="Index">📊 Dashboard</a>
+                                </li>
+                            }
+
+                            @* MENU CHỈ KHÁCH HÀNG *@
+                            @if (vaiTro == VaiTroConstant.KhachHang)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="KhachHang" asp-action="Profile">👤 Hồ sơ</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="PhieuSuaChua" asp-action="MyPhieu">📋 Phiếu của tôi</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="PhieuSuaChua" asp-action="Create">➕ Đăng ký sửa chữa</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+
+                    <ul class="navbar-nav">
+                        @if (string.IsNullOrEmpty(vaiTro))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="Login">🔐 Đăng nhập</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <span class="nav-link">👋 Xin chào, <strong>@hoTen</strong></span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-warning" asp-controller="Account" asp-action="Logout">🚪 Đăng xuất</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mt-4">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted mt-4">
+        <div class="container text-center py-3">
+            &copy; 2026 - Quản Lý Bảo Hành UNETI - Nhóm 5 SV - Lớp DHTI17A2HN
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
